@@ -8,11 +8,13 @@ class ProjectCard extends StatelessWidget {
     this.image = noImage,
     this.color,
     this.title,
+    this.volume = 0,
     this.data = "0",
     this.onTap,
     this.onLongPress,
   }) : super(key: key);
 
+  final int volume;
   final AssetImage image;
   final Color color;
   final String title;
@@ -58,7 +60,7 @@ class ProjectCard extends StatelessWidget {
                     ),
                   ),
                   child: AutoSizeText(
-                    "Nome do Projeto",
+                    title,
                     maxFontSize: 25,
                     minFontSize: 16,
                     maxLines: 2,
@@ -69,7 +71,7 @@ class ProjectCard extends StatelessWidget {
               Expanded(
                 child: Container(
                   margin: EdgeInsets.all(5),
-                  alignment: Alignment.bottomLeft,
+                  alignment: Alignment.center,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       fit: BoxFit.cover,
@@ -79,17 +81,9 @@ class ProjectCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          Text(
-                            "Volume Total (m³): ",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(data)
-                        ],
-                      ),
+                      (volume == null)
+                          ? Text('Volume Total (m³):0')
+                          : Text('Volume Total (m³):' '$volume'),
                       SizedBox(
                         height: 5,
                       ),

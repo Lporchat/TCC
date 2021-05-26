@@ -1,5 +1,6 @@
 import 'package:dashboard/components/app_drawer.dart';
 import 'package:dashboard/components/project_card.dart';
+import 'package:dashboard/models/projects/project.dart';
 import 'package:dashboard/screens/projects/project_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,27 +38,42 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
         ],
       ),
       drawer: AppDrawer(),
-      body: GridView.count(
-        crossAxisCount: 2,
-        children: [
-          ProjectCard(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => ProjectDetailScreen(),
-                ),
-              );
-            },
-            onLongPress: () {
-              _showEditor(context);
-            },
-          ),
-          ProjectCard(),
-          ProjectCard(),
-          ProjectCard(),
-          ProjectCard(),
-        ],
+      body: FutureBuilder(
+        future: getAllprojects(),
+        // ignore: missing_return
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return GridView.count(
+              crossAxisCount: 2,
+              children: List.generate(snapshot.data.length, (index) {
+                return ProjectCard(
+                  title: snapshot.data[index].titulo,
+                  volume: snapshot.data[index].volume,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => ProjectDetailScreen(
+                          id: snapshot.data[index].id,
+                          img: snapshot.data[index].img,
+                          pavimentos: snapshot.data[index].pavimentos,
+                          titulo: snapshot.data[index].titulo,
+                          volume: snapshot.data[index].volume,
+                          obs: snapshot.data[index].obs,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              }),
+            );
+          } else if (!snapshot.hasData) {
+            print("carregando");
+            return Center(child: Text("Carregando"));
+          } else if (snapshot.hasError) {
+            return Center(child: Text("Deu erro"));
+          }
+        },
       ),
     );
   }

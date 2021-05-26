@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 
-class ProjectDetailCard extends StatelessWidget {
-  const ProjectDetailCard({
-    Key key,
-  }) : super(key: key);
+class ProjectDetailCard extends StatefulWidget {
+  ProjectDetailCard({this.volume, this.obs});
+  final int volume;
+  final String obs;
+  @override
+  _ProjectDetailCardState createState() => _ProjectDetailCardState();
+}
 
+class _ProjectDetailCardState extends State<ProjectDetailCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -40,23 +44,18 @@ class ProjectDetailCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 3),
-                    child: Text.rich(
-                      TextSpan(
-                        text: "Volume (m³): ",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: "0.0",
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                            ),
-                          )
+                      padding: const EdgeInsets.symmetric(vertical: 3),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Volume (m³): ",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          (widget.volume == null)
+                              ? Text('0')
+                              : Text(widget.volume.toString()),
                         ],
-                      ),
-                    ),
-                  ),
+                      )),
                   Spacer(),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5),
@@ -67,8 +66,7 @@ class ProjectDetailCard extends StatelessWidget {
                             fontWeight: FontWeight.bold, fontSize: 14),
                         children: <TextSpan>[
                           TextSpan(
-                            text:
-                                "Blá blá blá, testando, detalhes, observações, dalnh, aownao ajnfa janwb ktial enw nte b en",
+                            text: widget.obs,
                             style: TextStyle(
                               fontWeight: FontWeight.normal,
                             ),

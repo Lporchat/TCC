@@ -9,6 +9,8 @@ class FloorCard extends StatelessWidget {
     this.color,
     this.title,
     this.data = "0",
+    this.volume,
+    this.pavimento,
     this.onTap,
   }) : super(key: key);
 
@@ -16,6 +18,8 @@ class FloorCard extends StatelessWidget {
   final Color color;
   final String title;
   final String data;
+  final String volume;
+  final int pavimento;
   final Function onTap;
 
   @override
@@ -48,7 +52,7 @@ class FloorCard extends StatelessWidget {
                     ),
                   ),
                   child: AutoSizeText(
-                    "Pavimento: (número)",
+                    "Pavimento: $pavimento",
                     maxFontSize: 25,
                     minFontSize: 16,
                     maxLines: 2,
@@ -59,7 +63,7 @@ class FloorCard extends StatelessWidget {
               Expanded(
                 child: Container(
                   margin: EdgeInsets.all(5),
-                  alignment: Alignment.bottomLeft,
+                  alignment: Alignment.center,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       fit: BoxFit.cover,
@@ -71,13 +75,9 @@ class FloorCard extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Text(
-                            "Volume (m³): ",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(data)
+                          (volume == null)
+                              ? Text('Volume Total (m³):0')
+                              : Text('Volume Total (m³):' '$volume'),
                         ],
                       ),
                       SizedBox(

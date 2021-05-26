@@ -11,7 +11,8 @@ Future getAllprojects() async {
         id: json['_id'],
         img: json['Img'],
         volume: json['VolumeT'],
-        pavimentos: json['NumPavimentos']);
+        pavimentos: json['NumPavimentos'],
+        obs: json['Obs']);
     lista.add(model);
   }
   return lista;
@@ -35,7 +36,7 @@ Future getProject(String titulo) async {
 }
 
 Future postProject(String titulo, int pavimentos,
-    [String Img, String obs, int volume]) async {
+    [String Img = "", String obs = "", int volume = 0]) async {
   var r = await Dio()
       .post('https://lit-caverns-97293.herokuapp.com/projetos', data: {
     "Titulo": titulo,
