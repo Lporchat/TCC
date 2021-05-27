@@ -1,5 +1,6 @@
 import 'package:dashboard/components/app_drawer/create_drawer_item.dart';
 import 'package:dashboard/screens/dashboard_screen.dart';
+import 'package:dashboard/screens/home_screen.dart';
 import 'package:dashboard/screens/programs_screen.dart';
 import 'package:dashboard/screens/projects/projects_screen.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +50,18 @@ class _AppDrawerState extends State<AppDrawer> {
           // ),
           CreateDrawerItem(
               faIcon: FaIcon(FontAwesomeIcons.cubes),
+              text: 'Dashbord',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => HomeScreen(),
+                  ),
+                );
+              }),
+
+          CreateDrawerItem(
+              faIcon: FaIcon(FontAwesomeIcons.cubes),
               text: 'Projetos',
               onTap: () {
                 Navigator.push(
@@ -58,18 +71,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   ),
                 );
               }),
-          CreateDrawerItem(
-            faIcon: FaIcon(FontAwesomeIcons.book),
-            text: 'Corpos de Prova',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => ProgramsScreen(),
-                ),
-              );
-            },
-          ),
+
           CreateDrawerItem(
             faIcon: FaIcon(FontAwesomeIcons.truck),
             text: 'Fornecedores',
@@ -94,8 +96,7 @@ class _AppDrawerState extends State<AppDrawer> {
               );
             },
           ),
-          Divider(),
-          CreateDrawerItem(
+          /*     CreateDrawerItem(
             faIcon: FaIcon(FontAwesomeIcons.thList),
             text: 'Programas',
             onTap: () {
@@ -106,9 +107,9 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
               );
             },
-          ),
+          ),*/
           ListTile(
-            title: Text('0.0.1'),
+            title: Text('1.0.1'),
             onTap: () {},
           ),
         ],
