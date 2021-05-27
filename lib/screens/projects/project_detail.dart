@@ -2,6 +2,7 @@ import 'package:dashboard/components/app_drawer.dart';
 import 'package:dashboard/components/floor_card.dart';
 import 'package:dashboard/components/project_detail_card.dart';
 import 'package:dashboard/models/floors/floors.dart';
+import 'package:dashboard/screens/projects/project_floors_editor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -138,6 +139,7 @@ void _showEditor(
   showModalBottomSheet(
       context: context,
       builder: (context) {
+        print(referencia_28);
         return BottomSheet(
             onClosing: () {},
             builder: (context) {
@@ -157,8 +159,35 @@ void _showEditor(
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    ProjectFormScreen(),
+                                builder: (BuildContext context) => FloorsEdited(
+                                  id: id,
+                                  idprojeto: idprojeto,
+                                  descricao: descricao,
+                                  img: img,
+                                  fornecedor: fornecedor,
+                                  elemento: elemento,
+                                  tecnico: tecnico,
+                                  nota: nota,
+                                  lacre: lacre,
+                                  fck: fck,
+                                  slump: slump,
+                                  volumeaplicado: volumeaplicado,
+                                  datasainda: datasainda,
+                                  datachegada: datachegada,
+                                  datainicio: datainicio,
+                                  datafim: datafim,
+                                  amostra1_7: amostra1_7,
+                                  amostra1_28: amostra1_28,
+                                  amostra1_63: amostra1_63,
+                                  amostra2_7: amostra2_7,
+                                  amostra2_28: amostra2_28,
+                                  amostra2_63: amostra2_63,
+                                  refencial_7: referencia_7,
+                                  refencial_28: referencia_28,
+                                  refencial_63: referencia_63,
+                                  pavimento: pavimento,
+                                  volume: volume,
+                                ),
                               ),
                             );
                           },
@@ -170,7 +199,7 @@ void _showEditor(
                             "deletar",
                             style: TextStyle(color: Colors.red, fontSize: 20.0),
                           ),
-                          onPressed: () {                            
+                          onPressed: () {
                             Navigator.of(context).pop();
                             showAlertDialog(context, refresh, id);
                           },
@@ -181,9 +210,10 @@ void _showEditor(
 }
 
 showAlertDialog(
-    BuildContext context,
-    Function refresh,
-    String id,) {
+  BuildContext context,
+  Function refresh,
+  String id,
+) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
