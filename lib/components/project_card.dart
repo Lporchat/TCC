@@ -82,8 +82,8 @@ class ProjectCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       (volume == null)
-                          ? Text('Volume Total (m³):0')
-                          : Text('Volume Total (m³):' '$volume'),
+                          ? Text('Volume T (m³):0')
+                          : Text('Volume T (m³): ' '$volume'),
                       SizedBox(
                         height: 5,
                       ),

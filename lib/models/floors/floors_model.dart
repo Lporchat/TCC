@@ -1,4 +1,5 @@
 class FloorsModel {
+  String id;
   String idprojeto; //
   int pavimento; //
   String descricao;
@@ -52,5 +53,6 @@ class FloorsModel {
       this.amostra2_63,
       this.referencia_7,
       this.referencia_28,
-      this.referencia_63});
+      this.referencia_63,
+      this.id});
 }

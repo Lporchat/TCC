@@ -6,6 +6,7 @@ class DashboardCard extends StatelessWidget {
     Key key,
     this.faIcon,
     this.color,
+    this.registro,
     @required this.title,
     this.data,
   }) : super(key: key);
@@ -14,6 +15,7 @@ class DashboardCard extends StatelessWidget {
   final Color color;
   final String title;
   final int data;
+  final String registro;
 
   @override
   Widget build(BuildContext context) {

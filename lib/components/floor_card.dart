@@ -12,6 +12,7 @@ class FloorCard extends StatelessWidget {
     this.volume,
     this.pavimento,
     this.onTap,
+    this.onLongPress,
   }) : super(key: key);
 
   final AssetImage image;
@@ -21,6 +22,7 @@ class FloorCard extends StatelessWidget {
   final String volume;
   final int pavimento;
   final Function onTap;
+  final Function onLongPress;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class FloorCard extends StatelessWidget {
         // margin: EdgeInsets.symmetric(horizontal: 2, vertical: 2),
         child: InkWell(
           onTap: onTap == null ? () {} : onTap,
+          onLongPress: onLongPress == null ? () {} : onLongPress,
           child: Column(
             children: [
               Container(
@@ -76,8 +79,8 @@ class FloorCard extends StatelessWidget {
                       Row(
                         children: [
                           (volume == null)
-                              ? Text('Volume Total (m³):0')
-                              : Text('Volume Total (m³):' '$volume'),
+                              ? Text('Volume T (m³):0')
+                              : Text('Volume T (m³):' '$volume'),
                         ],
                       ),
                       SizedBox(
