@@ -2,6 +2,9 @@ import 'package:dashboard/components/app_drawer.dart';
 import 'package:dashboard/components/project_card.dart';
 import 'package:dashboard/models/projects/project.dart';
 import 'package:dashboard/screens/projects/project_detail.dart';
+import 'package:dashboard/screens/projects/project_edited.dart';
+import 'package:dashboard/screens/projects/project_floors_editor.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,6 +18,11 @@ class ProjectsScreen extends StatefulWidget {
 
 class _ProjectsScreenState extends State<ProjectsScreen> {
   String titulo;
+
+  refresh() {
+    print("foi deletado");
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,24 +55,36 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
               crossAxisCount: 2,
               children: List.generate(snapshot.data.length, (index) {
                 return ProjectCard(
-                  title: snapshot.data[index].titulo,
-                  volume: snapshot.data[index].volume,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => ProjectDetailScreen(
-                          id: snapshot.data[index].id,
-                          img: snapshot.data[index].img,
-                          pavimentos: snapshot.data[index].pavimentos,
-                          titulo: snapshot.data[index].titulo,
-                          volume: snapshot.data[index].volume,
-                          obs: snapshot.data[index].obs,
+                    title: snapshot.data[index].titulo,
+                    volume: snapshot.data[index].volume,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              ProjectDetailScreen(
+                            id: snapshot.data[index].id,
+                            img: snapshot.data[index].img,
+                            pavimentos: snapshot.data[index].pavimentos,
+                            titulo: snapshot.data[index].titulo,
+                            volume: snapshot.data[index].volume,
+                            obs: snapshot.data[index].obs,
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                );
+                      );
+                    },
+                    onLongPress: () {
+                      _showEditor(
+                        context,
+                        refresh,
+                        snapshot.data[index].id,
+                        snapshot.data[index].img,
+                        snapshot.data[index].pavimentos,
+                        snapshot.data[index].titulo,
+                        snapshot.data[index].volume,
+                        snapshot.data[index].obs,
+                      );
+                    });
               }),
             );
           } else if (!snapshot.hasData) {
@@ -79,7 +99,8 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   }
 }
 
-void _showEditor(context) {
+void _showEditor(context, Function refresh, String id, String img,
+    int pavimentos, String titulo, int volume, String obs) {
   showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -103,7 +124,14 @@ void _showEditor(context) {
                               context,
                               MaterialPageRoute(
                                 builder: (BuildContext context) =>
-                                    ProjectFormScreen(),
+                                    ProjectEdited(
+                                  id: id,
+                                  img: img,
+                                  pavimentos: pavimentos,
+                                  obs: obs,
+                                  titulo: titulo,
+                                  volume: volume,
+                                ),
                               ),
                             );
                           },
@@ -117,7 +145,7 @@ void _showEditor(context) {
                           ),
                           onPressed: () {
                             Navigator.of(context).pop();
-                            showAlertDialog(context);
+                            showAlertDialog(context, id, refresh);
                           },
                         )),
                   ]));
@@ -125,7 +153,7 @@ void _showEditor(context) {
       });
 }
 
-showAlertDialog(BuildContext context) {
+showAlertDialog(BuildContext context, String id, Function refresh) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -139,7 +167,7 @@ showAlertDialog(BuildContext context) {
           FlatButton(
             child: Text(
               "Não",
-              style: TextStyle(color: Colors.blue, fontSize: 20.0),
+              style: TextStyle(color: Colors.red, fontSize: 20.0),
             ),
             onPressed: () {
               Navigator.of(context).pop();
@@ -147,11 +175,15 @@ showAlertDialog(BuildContext context) {
           ),
           FlatButton(
             child: Text(
-              "Sim",
-              style: TextStyle(color: Colors.red, fontSize: 20.0),
+              "sim",
+              style: TextStyle(color: Colors.blue, fontSize: 20.0),
             ),
             onPressed: () {
               Navigator.of(context).pop();
+              deleteProject(id);
+              Future.delayed(const Duration(milliseconds: 1000), () {
+                refresh();
+              });
             },
           )
         ],

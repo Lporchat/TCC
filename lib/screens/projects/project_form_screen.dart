@@ -1,3 +1,4 @@
+import 'package:dashboard/models/Providers/project.dart';
 import 'package:flutter/material.dart';
 
 class ProjectFormScreen extends StatefulWidget {
@@ -7,20 +8,26 @@ class ProjectFormScreen extends StatefulWidget {
 
 class _ProjectFormScreenState extends State<ProjectFormScreen> {
   GlobalKey<FormState> _key = new GlobalKey();
-  String titulo, num_pavimentos, obs;
+  String titulo, img, obs;
+  int volume, pavimento;
+  TextEditingController _titulo = TextEditingController();
+  TextEditingController _img = TextEditingController();
+  TextEditingController _obs = TextEditingController();
+  TextEditingController _volume = TextEditingController();
+  TextEditingController _pavimento = TextEditingController();
 
   _sendForm() {
     if (_key.currentState.validate()) {
       // Sem erros na validação
       _key.currentState.save();
-      print("Título $titulo");
-      print("Número de Pavimentos $num_pavimentos");
-      print("Observações $obs");
-    } else {
-      // // erro de validação
-      // setState(() {
-      //   _validate = true;
-      // });
+      postProject(titulo, pavimento, img, obs, volume);
+      _titulo.text = "";
+      _obs.text = "";
+      _volume.text = "";
+      _pavimento.text = "";
+      _img.text = "";
+      var snackBar = SnackBar(content: Text('Projeto criado com sucesso'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 
@@ -28,7 +35,8 @@ class _ProjectFormScreenState extends State<ProjectFormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Nome do Projeto"),
+        title: Text("Novo Projeto"),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -38,6 +46,7 @@ class _ProjectFormScreenState extends State<ProjectFormScreen> {
             child: Column(
               children: [
                 TextFormField(
+                  controller: _titulo,
                   decoration: InputDecoration(hintText: 'Título'),
                   maxLength: 255,
                   onSaved: (String val) {
@@ -45,17 +54,39 @@ class _ProjectFormScreenState extends State<ProjectFormScreen> {
                   },
                 ),
                 TextFormField(
+                  controller: _pavimento,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(hintText: 'Número de Pavimentos'),
                   maxLength: 10,
                   onSaved: (String val) {
-                    num_pavimentos = val;
+                    pavimento = int.parse(val);
+                    ;
                   },
                 ),
                 TextFormField(
+                  controller: _obs,
                   decoration: InputDecoration(hintText: 'Observações'),
                   maxLength: 255,
                   onSaved: (String val) {
                     obs = val;
+                  },
+                ),
+                TextFormField(
+                  controller: _volume,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(hintText: 'Volume'),
+                  maxLength: 255,
+                  onSaved: (String val) {
+                    volume = int.parse(val);
+                    ;
+                  },
+                ),
+                TextFormField(
+                  controller: _img,
+                  decoration: InputDecoration(hintText: 'Imagem(link)'),
+                  maxLength: 255,
+                  onSaved: (String val) {
+                    img = val;
                   },
                 ),
                 SizedBox(height: 15.0),

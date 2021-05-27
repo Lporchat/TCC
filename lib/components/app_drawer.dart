@@ -48,17 +48,6 @@ class _AppDrawerState extends State<AppDrawer> {
           //   ],
           // ),
           CreateDrawerItem(
-              faIcon: FaIcon(FontAwesomeIcons.solidBuilding),
-              text: 'Dashboard',
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => DashboardScreen(),
-                  ),
-                );
-              }),
-          CreateDrawerItem(
               faIcon: FaIcon(FontAwesomeIcons.cubes),
               text: 'Projetos',
               onTap: () {
