@@ -3,6 +3,8 @@ import 'package:dashboard/screens/dashboard_screen.dart';
 import 'package:dashboard/screens/home_screen.dart';
 import 'package:dashboard/screens/programs_screen.dart';
 import 'package:dashboard/screens/projects/projects_screen.dart';
+import 'package:dashboard/screens/providers/providers_screem.dart';
+import 'package:dashboard/screens/tech/tech_screem.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -79,7 +81,7 @@ class _AppDrawerState extends State<AppDrawer> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) => ProgramsScreen(),
+                  builder: (BuildContext context) => ProvidersScreem(),
                 ),
               );
             },
@@ -91,7 +93,7 @@ class _AppDrawerState extends State<AppDrawer> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) => ProgramsScreen(),
+                  builder: (BuildContext context) => TechScreem(),
                 ),
               );
             },

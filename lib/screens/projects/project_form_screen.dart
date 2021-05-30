@@ -1,4 +1,4 @@
-import 'package:dashboard/models/Providers/project.dart';
+import 'package:dashboard/models/projects/project.dart';
 import 'package:flutter/material.dart';
 
 class ProjectFormScreen extends StatefulWidget {
