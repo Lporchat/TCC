@@ -42,7 +42,6 @@ Future getfloors(String titulo) async {
 }
 
 Future postFloors(
-  String id,
   String idprojeto,
   int pavimento,
   String fornecedor,
@@ -71,7 +70,7 @@ Future postFloors(
   String referencia_63 = '',
 ]) async {
   var r = await Dio()
-      .post('https://lit-caverns-97293.herokuapp.com/pavimentos/' + id, data: {
+      .post('https://lit-caverns-97293.herokuapp.com/pavimentos/', data: {
     "IdProjeto": idprojeto,
     "Pavimento": pavimento,
     "Descricao": descricao,

@@ -1,10 +1,14 @@
 import 'package:dashboard/screens/projects/project_detail.dart';
 import 'package:dashboard/screens/projects/project_edited.dart';
+import 'package:dashboard/models/floors/floors.dart';
 import 'package:flutter/material.dart';
 
 class FloorsEdited extends StatefulWidget {
   const FloorsEdited({
     Key key,
+    this.obsP,
+    this.titulo,
+    this.volP,
     this.id,
     this.idprojeto,
     this.pavimento,
@@ -59,6 +63,9 @@ class FloorsEdited extends StatefulWidget {
   final String refencial_28;
   final String refencial_63;
   final String volume;
+  final String obsP;
+  final String titulo;
+  final int volP;
   final int volumeaplicado;
   final int pavimento;
 
@@ -88,7 +95,7 @@ TextEditingController _amostra1_63 = TextEditingController();
 TextEditingController _amostra2_7 = TextEditingController();
 TextEditingController _amostra2_28 = TextEditingController();
 TextEditingController _amostra2_63 = TextEditingController();
-TextEditingController _referemcia_7 = TextEditingController();
+TextEditingController _referencia_7 = TextEditingController();
 TextEditingController _referencia_28 = TextEditingController();
 TextEditingController _referencia_63 = TextEditingController();
 TextEditingController _volume = TextEditingController();
@@ -116,7 +123,7 @@ class _FloorsEditedState extends State<FloorsEdited> {
     _amostra2_7.text = widget.amostra2_7;
     _amostra2_28.text = widget.amostra2_28;
     _amostra2_63.text = widget.amostra2_63;
-    _referemcia_7.text = widget.refencial_7;
+    _referencia_7.text = widget.refencial_7;
     _referencia_28.text = widget.refencial_28;
     _referencia_63.text = widget.refencial_63;
     _volume.text = widget.volume;
@@ -247,7 +254,7 @@ class _FloorsEditedState extends State<FloorsEdited> {
                   maxLength: 255,
                 ),
                 TextFormField(
-                  controller: _referemcia_7,
+                  controller: _referencia_7,
                   decoration: InputDecoration(hintText: 'Referencia do 7'),
                   maxLength: 255,
                 ),
@@ -265,6 +272,37 @@ class _FloorsEditedState extends State<FloorsEdited> {
                 ElevatedButton(
                   onPressed: () {
                     // Sem erros na validação
+                    int pavimento = int.parse(_pavimento.text);
+                    int volumeapli = int.parse(_volumeaplicado.text);
+                    putFloors(
+                      widget.id,
+                      _idprojeto.text,
+                      pavimento,
+                      _fornecedor.text,
+                      _tecnico.text,
+                      _descricao.text,
+                      _volume.text,
+                      _img.text,
+                      _elemento.text,
+                      _nota.text,
+                      _lacre.text,
+                      _fck.text,
+                      _slump.text,
+                      volumeapli,
+                      _datasainda.text,
+                      _datachegada.text,
+                      _datainicio.text,
+                      _datafim.text,
+                      _amostra1_7.text,
+                      _amostra1_28.text,
+                      _amostra1_63.text,
+                      _amostra2_7.text,
+                      _amostra2_28.text,
+                      _amostra2_63.text,
+                      _referencia_7.text,
+                      _referencia_28.text,
+                      _referencia_63.text,
+                    );
                     var snackBar = SnackBar(
                         content: Text('Projeto atualizado com sucesso'));
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -277,10 +315,10 @@ class _FloorsEditedState extends State<FloorsEdited> {
                           // precisa recer o que o projeto passadp
                           id: widget.idprojeto,
                           img: "",
-                          obs: "",
+                          obs: widget.obsP,
                           pavimentos: 0,
-                          titulo: "",
-                          volume: 0,
+                          titulo: widget.titulo,
+                          volume: widget.volP,
                         ),
                       ),
                     );

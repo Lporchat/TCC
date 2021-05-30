@@ -45,7 +45,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
           ),
           Expanded(
             child: FutureBuilder(
-              future: getfloors(""),
+              future: getfloors(widget.id),
               // ignore: missing_return
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
@@ -60,6 +60,9 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                           _showEditor(
                             context,
                             refresh,
+                            widget.volume,
+                            widget.obs,
+                            widget.titulo,
                             snapshot.data[index].id,
                             snapshot.data[index].idprojeto,
                             snapshot.data[index].pavimento,
@@ -109,6 +112,9 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
 void _showEditor(
     context,
     Function refresh,
+    vol,
+    obs,
+    titulo,
     id,
     idprojeto,
     pavimento,
@@ -161,6 +167,9 @@ void _showEditor(
                               MaterialPageRoute(
                                 builder: (BuildContext context) => FloorsEdited(
                                   id: id,
+                                  obsP: obs,
+                                  volP: vol,
+                                  titulo: titulo,
                                   idprojeto: idprojeto,
                                   descricao: descricao,
                                   img: img,
